@@ -13,7 +13,6 @@ from app.database import get_predictions_collection
 from app.schemas import PredictionResponse
 from app.models import PredictionDocument
 from app.ml.model_loader import predict
-from app.ml.mri_validator import is_valid_mri_scan
 from dotenv import load_dotenv
 
 load_dotenv()
@@ -71,13 +70,6 @@ async def predict_tumor(
         raise HTTPException(
             status_code=status.HTTP_413_REQUEST_ENTITY_TOO_LARGE,
             detail=f"File too large. Maximum size is {MAX_FILE_SIZE_MB}MB.",
-        )
-
-    # ─── Step 1c: MRI Scan Content Validation ────────────────────────────────
-    if not is_valid_mri_scan(image_bytes):
-        raise HTTPException(
-            status_code=status.HTTP_422_UNPROCESSABLE_ENTITY,
-            detail="Incorrect image upload. Please upload a valid brain MRI scan.",
         )
 
     # ─── Step 2: Save Image ────────────────────────────────────────────────────

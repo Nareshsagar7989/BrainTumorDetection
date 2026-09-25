@@ -15,13 +15,11 @@ class UserDocument:
         username: str,
         email: str,
         hashed_password: str,
-        role: str = "user",
         created_at: datetime = None,
     ):
         self.username = username
         self.email = email
         self.hashed_password = hashed_password
-        self.role = role
         self.created_at = created_at or datetime.utcnow()
         self.is_active = True
 
@@ -30,7 +28,6 @@ class UserDocument:
             "username": self.username,
             "email": self.email,
             "hashed_password": self.hashed_password,
-            "role": self.role,
             "created_at": self.created_at,
             "is_active": self.is_active,
         }

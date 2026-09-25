@@ -11,9 +11,11 @@ import axios from 'axios';
 
 const TOKEN_KEY = 'braintumor_access_token';
 
+const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:8000';
+
 // Create a pre-configured Axios instance
 const api = axios.create({
-    baseURL: 'http://localhost:8000',
+    baseURL: API_BASE_URL,
     timeout: 30000, // 30 second timeout (model inference can be slow)
     headers: {
         'Content-Type': 'application/json',

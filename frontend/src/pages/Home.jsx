@@ -68,12 +68,12 @@ export default function Home() {
                     {/* Tag */}
                     <div className="inline-flex items-center gap-2 bg-primary-500/15 border border-primary-500/30 rounded-full px-4 py-2 text-sm text-primary-400 font-medium mb-8 animate-fade-in">
                         <span className="w-2 h-2 bg-primary-400 rounded-full animate-pulse" />
-                        A Deep Learning Approach For
+                        AI-Powered Medical Imaging Analysis
                     </div>
 
                     {/* Headline */}
                     <h1 className="text-5xl md:text-7xl font-display font-black text-white leading-tight mb-6 animate-slide-up">
-                        Brain Tumor Detection Using MRI Scans
+                        Detect Brain Tumors
                         <br />
                         <span className="text-gradient">with AI Precision</span>
                     </h1>

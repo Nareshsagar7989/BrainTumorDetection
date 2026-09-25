@@ -53,11 +53,6 @@ export default function Navbar() {
                             <>
                                 <Link to="/upload" className={navLinkClass('/upload')}>Upload MRI</Link>
                                 <Link to="/history" className={navLinkClass('/history')}>History</Link>
-                                {user?.role === 'admin' && (
-                                    <Link to="/admin" className={navLinkClass('/admin')}>
-                                        Admin Panel
-                                    </Link>
-                                )}
                             </>
                         )}
                     </div>
@@ -111,9 +106,6 @@ export default function Navbar() {
                             <>
                                 <Link to="/upload" className="block px-4 py-3 text-white/80 hover:text-white hover:bg-white/10 rounded-lg transition-colors" onClick={() => setMenuOpen(false)}>Upload MRI</Link>
                                 <Link to="/history" className="block px-4 py-3 text-white/80 hover:text-white hover:bg-white/10 rounded-lg transition-colors" onClick={() => setMenuOpen(false)}>History</Link>
-                                {user?.role === 'admin' && (
-                                    <Link to="/admin" className="block px-4 py-3 text-primary-400 font-semibold hover:bg-white/10 rounded-lg transition-colors" onClick={() => setMenuOpen(false)}>Admin Panel</Link>
-                                )}
                             </>
                         )}
                         {isAuthenticated ? (

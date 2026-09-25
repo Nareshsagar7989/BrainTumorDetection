@@ -1,49 +1,32 @@
-# ========================
-# React & Vite Frontend
-# ========================
-frontend/node_modules/
-frontend/dist/
-frontend/build/
-frontend/.eslintcache
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
+# Environment Variables (Protect Secrets)
+.env
+*.env
+.env.local
+.env.*.local
+!.env.example
 
-# ========================
-# Python & FastAPI Backend
-# ========================
-backend/venv/
-backend/env/
-backend/uploads/       # Excluding local user uploads
-
-# Compiled Python files
+# Python / Backend
 __pycache__/
 *.py[cod]
 *$py.class
-*.so
+venv/
+.venv/
+env/
+*.h5
+*.keras
+backend/app/ml/*.h5
+backend/app/ml/*.keras
+backend/uploads/*
+!backend/uploads/.gitkeep
 
-# ========================
-# Environment Variables
-# ========================
-# *CRITICAL*: Never push your secrets, API keys, or database passwords
-.env
-.env.local
-.env.*.local
-*.pem
+# Node.js / Frontend
+node_modules/
+dist/
+dist-ssr/
+*.local
 
-# ========================
-# Editor & OS Files
-# ========================
-# Antigravity IDE & general editor settings
-.gemini/
-.vscode/
-.idea/
-*.suo
-*.ntvs*
-*.njsproj
-*.sln
-*.sw?
-
-# System Files
+# System & IDE files
 .DS_Store
 Thumbs.db
+.vscode/
+.idea/

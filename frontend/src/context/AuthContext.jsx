@@ -47,7 +47,6 @@ export function AuthProvider({ children }) {
             user_id: tokenResponse.user_id,
             username: tokenResponse.username,
             email: tokenResponse.email,
-            role: tokenResponse.role || 'user', // Defaults to 'user' for backwards compatibility
         };
 
         setToken(tokenResponse.access_token);

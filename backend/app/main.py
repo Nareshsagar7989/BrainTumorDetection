@@ -10,7 +10,7 @@ from contextlib import asynccontextmanager
 import os
 
 from app.database import connect_db, close_db
-from app.routes import auth_routes, prediction_routes, history_routes, admin_routes
+from app.routes import auth_routes, prediction_routes, history_routes
 from app.ml.model_loader import load_model
 from dotenv import load_dotenv
 
@@ -19,37 +19,6 @@ load_dotenv()
 UPLOAD_DIR = os.getenv("UPLOAD_DIR", "uploads")
 os.makedirs(UPLOAD_DIR, exist_ok=True)
 
-
-async def init_superuser():
-    """Reads .env to initialize the first admin user automatically."""
-    email = os.getenv("FIRST_SUPERUSER_EMAIL")
-    password = os.getenv("FIRST_SUPERUSER_PASSWORD")
-    
-    if not email or not password:
-        return
-        
-    from app.database import get_users_collection
-    from app.utils.security import hash_password
-    from app.models import UserDocument
-    
-    users_col = get_users_collection()
-    existing_user = await users_col.find_one({"email": email})
-    
-    if existing_user:
-        if existing_user.get("role") != "admin":
-            await users_col.update_one(
-                {"_id": existing_user["_id"]},
-                {"$set": {"role": "admin"}}
-            )
-            print(f"✅ Upgraded existing user {email} to admin role.")
-        return
-        
-    print(f"🚀 Creating first superuser: {email}")
-    hashed_pw = hash_password(password)
-    username = email.split("@")[0] # fallback username
-    user_doc = UserDocument(username=username, email=email, hashed_password=hashed_pw, role="admin")
-    await users_col.insert_one(user_doc.to_dict())
-    print("✅ First superuser created successfully.")
 
 # ─── Application Lifecycle ────────────────────────────────────────────────────
 @asynccontextmanager
@@ -63,9 +32,6 @@ async def lifespan(app: FastAPI):
 
     # Connect to MongoDB
     await connect_db()
-    
-    # Initialize superuser if configured
-    await init_superuser()
 
     # Load CNN model (or enter demo mode)
     load_model()
@@ -115,7 +81,6 @@ app.mount("/uploads", StaticFiles(directory=UPLOAD_DIR), name="uploads")
 app.include_router(auth_routes.router)
 app.include_router(prediction_routes.router)
 app.include_router(history_routes.router)
-app.include_router(admin_routes.router)
 
 
 # ─── Root Endpoint ────────────────────────────────────────────────────────────

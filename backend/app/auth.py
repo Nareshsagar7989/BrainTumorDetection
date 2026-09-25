@@ -107,15 +107,3 @@ async def get_current_user(
     # Return a clean user dict with string _id
     user["_id"] = str(user["_id"])
     return user
-
-
-async def get_current_admin(current_user: dict = Depends(get_current_user)) -> dict:
-    """
-    FastAPI dependency: utilizes get_current_user and ensures the user has the 'admin' role.
-    """
-    if current_user.get("role") != "admin":
-        raise HTTPException(
-            status_code=status.HTTP_403_FORBIDDEN,
-            detail="You do not have permission to access administrative resources.",
-        )
-    return current_user

@@ -110,8 +110,7 @@ async def login(data: UserLoginRequest):
 
     # Create JWT token with user_id as the subject claim
     user_id = str(user["_id"])
-    role = user.get("role", "user")
-    token = create_access_token(data={"sub": user_id, "role": role})
+    token = create_access_token(data={"sub": user_id})
 
     return TokenResponse(
         access_token=token,
@@ -119,5 +118,4 @@ async def login(data: UserLoginRequest):
         user_id=user_id,
         username=user["username"],
         email=user["email"],
-        role=role,
     )

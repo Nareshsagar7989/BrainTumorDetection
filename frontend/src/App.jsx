@@ -17,8 +17,6 @@ import Login from './pages/Login';
 import Signup from './pages/Signup';
 import Upload from './pages/Upload';
 import History from './pages/History';
-import AdminPanel from './pages/AdminPanel';
-import AdminRoute from './components/AdminRoute';
 
 export default function App() {
     return (
@@ -71,16 +69,6 @@ export default function App() {
                             <ProtectedRoute>
                                 <History />
                             </ProtectedRoute>
-                        }
-                    />
-                    
-                    {/* ── Admin Route ─────────────────────────────────────────────────── */}
-                    <Route
-                        path="/admin"
-                        element={
-                            <AdminRoute>
-                                <AdminPanel />
-                            </AdminRoute>
                         }
                     />
 

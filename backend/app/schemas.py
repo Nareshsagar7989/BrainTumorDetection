@@ -48,14 +48,12 @@ class TokenResponse(BaseModel):
     user_id: str
     username: str
     email: str
-    role: str
 
 
 class UserPublic(BaseModel):
     user_id: str
     username: str
     email: str
-    role: str
 
 
 # ─────────────────────────────────────────────────────────────────────────────
