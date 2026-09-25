@@ -1,26 +1,24 @@
 """
-security.py – Password hashing and verification utilities using bcrypt.
-Using passlib's CryptContext to abstract away bcrypt details.
+security.py – Password hashing and verification utilities using standard bcrypt.
+Directly uses bcrypt to avoid passlib version incompatibility issues in production.
 """
 
-from passlib.context import CryptContext
-
-# CryptContext handles algorithm upgrades automatically
-pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
+import bcrypt
 
 
 def hash_password(plain_password: str) -> str:
     """
     Hashes a plain-text password using bcrypt.
-    bcrypt automatically generates a salt and includes it in the hash.
     
     Args:
         plain_password: The user's plain-text password
         
     Returns:
-        A bcrypt hash string that includes the salt
+        A bcrypt hash string
     """
-    return pwd_context.hash(plain_password)
+    pwd_bytes = plain_password.encode("utf-8")
+    salt = bcrypt.gensalt()
+    return bcrypt.hashpw(pwd_bytes, salt).decode("utf-8")
 
 
 def verify_password(plain_password: str, hashed_password: str) -> bool:
@@ -34,4 +32,10 @@ def verify_password(plain_password: str, hashed_password: str) -> bool:
     Returns:
         True if passwords match, False otherwise
     """
-    return pwd_context.verify(plain_password, hashed_password)
+    try:
+        return bcrypt.checkpw(
+            plain_password.encode("utf-8"),
+            hashed_password.encode("utf-8"),
+        )
+    except Exception:
+        return False
