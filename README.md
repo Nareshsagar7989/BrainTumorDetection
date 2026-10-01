@@ -1,5 +1,5 @@
 # BrainTumor AI – Brain Tumor Detection System
-
+**Live Demo: ** https://brain-tumor-detection-swart-six.vercel.app/
 A full-stack medical AI web application that uses a CNN model to detect brain tumors from MRI scans.
 
 ## Tech Stack
